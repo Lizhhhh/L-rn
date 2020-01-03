@@ -255,12 +255,12 @@
   }
   ````
 
-  # 3.2.5 参数
+# 3.2.5 参数
     - ES6对参数的写法做了较大的改动,主要体现在参数默认值、不定参数、扩展参数方面。
-  # 参数默认值
+# 参数默认值
     - 通常来说,函数调用者不需要传递所有可能存在的参数,没有被传递的参数可由默认的参数进行填充。JavaScript有严格的默认参数格式,未被传值的参数默认为undefined。
     - 在ES5语法中,对于默认值的设定,往往需要通过逻辑或操作符运算来设置。而在ES6中,系统允许开发者在函数定义的时候就指定任意参数的默认值。例如:
-    ````javascript
+  ````javascript
     // 设置默认参数
     function sayHello(name) {
       // 传统的指定默认参数的方式
@@ -416,4 +416,296 @@
   console.log(a);
   console.log(b);
   ````
+
+# 3.3 React JSX
+  - React使用JSX来替代常规的JavaScript,然后通过工具(如Babel)将JSX代码编译成React支持的JS文件,使用JSX可以让代码可读性更高、语义更清晰。
+
+# 3.3.1 JSX入门
+  - JSX是Facebook团队提出的一个语法方案,可以在JavaScript代码中直接使用HTML标签来编写JavaScript对象。其使用的是XML-file语法,这种语法方案需要通过JSXTransformer进行编译,转换成真实可用的JavaScript代码.
+  - React的核心机制就是包括虚拟DOM,使用JSX语法可以很方便地创建虚拟DOM。
+  ````javascript
+    var root = {
+      <ul className="list">
+        <li>Content of node1</li>
+        <li>Content of node2</li>
+      </ul>
+    }
+    // 上面的代码等价于下面的JavaScript代码:
+    var node1 = React.createElement('li', null, 'Content of node1');
+    var node1 = React.createElement('li', null, 'Content of node2');
+    var rootNode = React.createElement('ul', {className: 'list'}, node1, node2);
+  ````
+  - 因为使用JSX可以让代码可读性更高、语义更清晰,并且JSX利用虚拟DOM技术减少实际DOM的操作从而提升了性能。所以, 使用JSX进行前端页面开发成为了行业标准之一。
+
+# 3.3.2 JSX语法
+  - 在前端框架中,React的开发思想是基于组件来开发产品,它将一个组件视为一个完全独立的、没有任何其他依赖的模块文件。React发明了JSX,利用特殊的语法格式来创建虚拟DOM,而利用虚拟DOM可以减少对实际DOM的操作,从而提升性能。
+  - JSX语法和XML语法类似,可以定义属性以及子元素,唯一的区别是,JSX用大括号来加入JavaScript表达式。JSX必须借助ReactJS环境才能运行下面介绍JSX中常见的一些语法。
+
+# 载入方式
+  - 目前,加载JSX文件主要有两种方式: 内联方式载入和外联方式载入。
+  - 内联方式载入:
+  ````html
+  <script type="text/babel">
+    ReactDOM.render(
+      <h1>hello hangge.com</li>
+      document.getElementById('example')
+    );
+  </script>
+  ````
+  - 外联方式载入:
+  ````javascript
+  ReactDOM.render(
+    <h1>hello hangge.com</h1>,
+    document.getElementById('example')
+  );
+  ````
+  - 然后,在其他文件引入之前定义的JSX文件
+  ````html
+  <script type="text/babel" src="hello.JSX"></script>
+  ````
+  - JSX标签,其实就是HTML标签.
+  ````javscript
+  <h1>Hello JSX</h1>
+  ````
+  - 创建一个自定义得标签:
+  ````javascript
+  class Hello extends React.Component {
+    render() {
+      return (
+        <div> hello </div>
+      );
+    }
+  }
+  ````
+  - 数组递归: 对数组进行循环,返回每个元素的React组件.
+  ````javascript
+  var lis = this.todolist.todos.map(function (todo){
+    return (
+      <li>
+        <input type="checkbox" checked={todo.done}>
+        <span className={'done-' + todo.done}>{todo.text}</span>
+      </li>
+    );
+  });
+  var ul = (
+    <ul className ="unstyled">
+      {lis}
+    </ul>
+  )
+  ````
+  - 事件绑定: JSX可以给元素直接绑定事件,如点击事件。React并不会真正绑定事件到每一个具体的元素上,而是采用事件代理方式,在根节点document上位每种事件添加唯一的事件监听者(Listener),然后通过事件的目标函数(target)找到真实触发元素的相关事件。
+  ````javascript
+  <button onClick={this.checkAndSubmit.bind(this)}>Submit</button>
+  ````
+  - 属性: 在JSX中可以通过标签的属性来改变当前元素的样式。
+  ````javascript
+  var property = <h1 width="10px"> Hello, React Native</h1>
+  ````
+  - 在JSX中,我们可以自定义属性,但是自定义属性必须以"data-"开头,这样才能渲染到界面上。
+  ````javascript
+  var hello = <h1 data-test="test" test="test">Hello React Native</h1>
+  React.render(
+    hello,
+    ...
+  )
+  ````
+  - 样式直接写在JSX中
+  ````javascript
+  <h1 style={{color: '#ff0000', fontSize: '15px'}}>Hello React Native</h1>
+  ````
+  - 自定义组件: 在JSX中,我们可以使用React自带的一些组件,也可以自定义组件。
+  ````javascript
+  class HelloWorld extends React.Component{
+    render() {
+      return (
+        <p>
+          Hello, <input type="text" placeholder = "Your name here" />!
+          It is {this.props.date.toTimeString()}
+        </p>
+      );
+    }
+  };
+
+  setInterval(function() {
+    React.render(
+      <HelloWorld date={new Date()} />,
+      document.getElementById('example')
+    );
+  }, 500);
+  ````
+  - 上面声明了一个名为Hello World的组件,当需要使用的时候,先导入组件,然后直接在xml中使用即可。
+  ````javascript
+  var MyHelloWorld = HelloWorld;
+  React.render(<MyHelloWolrd />, ...);
+  ````
+  - 自定义命名空间,并引入:
+  ````javascript
+  var sampleNameSpace = {
+    MyHelloWorld: HelloWorld
+  };
+  React.render(<sampleNameSpace.MyHelloWorld />, ...);
+  ````
+# 3.4 样式
+  - GitHub上有一个React Style项目,提供React Native 和 Web样式的共用解决方案.
+  - 在React Native的样式的开发中,React Native不实现CSS, 而是依赖于JavaScript来为应用程序设置样式
+
+# 3.4.1 申明与操作样式
+  - 在React Native的开发过程中,使用JavaScript对单个元素的样式进行操作即可。
+  - 将样式引入到JavaScript中,从而保证了组件的模块化和独立化.
+
+# 3.4.2 样式的分类
+  - 样式表按作用域分为: 行内样式、内嵌样式、外部样式
+
+# 行内样式:
+````js
+<View style ={
+  {
+    width: 300,
+    height: 600,
+    backgroundColor: 'red'
+  }
+}>
+````
+
+# 内嵌样式
+````js
+var bold = {
+  fontWeight: 'bold'
+};
+...
+render() {
+  return {
+    <Text style={bold}>
+      内嵌样式
+    </Text>
+  }
+}
+````
+
+# 外部样式
+- 导出
+````js
+// style.js
+import React from 'react';
+import {StyleSheet} from 'react-native';
+var style = StyleSheet.create(
+  {
+    fontSize: {
+      fontSize: 20
+    }
+  }
+);
+module.exports = style;
+````
+- 导入
+````js
+import style from 'style.js'
+// ...
+<Text style ={style.fontSize}>
+  外联样式
+</Text>
+````
+
+# 3.4.3 样式使用
+- 创建一个样式数组
+````js
+var styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#ffffff',
+    borderRadius: 8
+  },
+  text: {
+    fontSize: 20
+  }
+});
+````
+- 通过简单的样式拼接,创建一个拥有组合样式的组件
+````javascript
+var combination = React.createClass{
+  render() {
+    return (
+      <Text style={ [styles.button, styles.text] }>
+        { 拼接组件 }
+      </Text>
+    )
+  }
+};
+````
+
+# 3.4.4 样式传递
+````js
+var List = React.createClass({
+  propTypes: {
+    style: View.propTypes.style,
+    elementStyle: View.propTypes.style
+  },
+  render: function () {
+    return (
+      <View style={this.props.style}>
+      {elements.map((element) =>
+        <View style={[Styles.element, this.props.elementStyle]}>
+      )}
+      </View>
+    );
+  }
+});
+````
+````js
+// in another file...
+<List style={styles.list} elementStyle={styles.listElement} />
+````
+
+# 3.5 手势与触摸事件
+- 对于移动设备而言,触控显得尤为重要.
+- React Native提供了一套统一的处理方式,能够方便地处理界面中组件的触摸事件、用户手势等.
+
+# 3.5.1 触摸事件
+- 通常来讲,用户触摸任何界面元素响应结果都需要使用`<TouchableHighlight>`组件来包装
+- `<TouchableHighlight>`组件提供的主要响应事件包括: onPressIn、onPressOut、onPress、onLongPress
+````javascript
+onPressIn() {
+  console.log('press in');
+}
+onPressout() {
+  console.log('press out');
+}
+onPress() {
+  console.log('press');
+}
+conLonePress() {
+  console.log('long press');
+}
+render() {
+  return (
+    <View style={styles.container}>
+      <TouchableHighlight>
+        style ={styles.touchable}
+        onPressIn = {this._onPressIn}
+        onPressOut = {this._onpressOut}
+        onPress = {this._onPress}
+        onLongPress = {this._onLonePrress}
+        <View style={styles.button}>
+        </View>
+      </TouchableHighlight>
+    </View>
+  )
+}
+````
+# TouchableHighlight使用实例
+````js
+// 定义弹框
+show () {
+  alert('React Native从入门到精通');
+}
+// 省略...
+<TouchableHighlight
+  style={styles.container}
+  onPress={ ()=> this.show() }>
+  <Text sytle={styles.text}>React Native 从入门到放弃</Text>
+</TouchableHighlight>
+````
+
+# 3.5.2 手势系统响应
+- RN提供了2个API来处理手势触控逻辑:`GestureResponder`和`PanResponder`
+
 
