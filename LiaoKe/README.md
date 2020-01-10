@@ -1,20 +1,35 @@
-# 说明
-- 尽管在移动开发中,原生App的开发成本很高,但现阶段基于原生开发仍然是必须的,因为Web的用户体验仍无法超越Native,主要体现在:
-  - Native的原生控件有更好的体验
-  - Native有更好的手势识别
-  - Native有更合适的线程模型,尽管Web Worker可以解一部分问题,但如图像解码、文本渲染仍无法多线程渲染,这影响了Web的流畅性
+# 01-ReactNative介绍
 
-# 一、开篇
-- React Native于F8大会开源,在短短不到一年的时间里,它称为手机端必不可少的开发模式之一。它充分利用了FaceBook现有的业务轮子,其核心设计理念: 既拥有Native的用户体验、又保留React的开发效率.
-- 目前,React Native基本完成了对多端的支持,实现了真正意义上的面向配置开发: 开发者可以灵活使用HTML和CSS布局,使用React语法构建组件,实现: H5、Android、IOS 多端代码复用.
+# 目前比较成熟的跨平台方案:
+- 1) React Native,   Vue + Weex
+- 2) AppCan
+- 3) Flutter(Google推出, 使用到dart语法, 学习成本较高)
+- React Native 已经完成了对多端的支持,实现了真正意义上的面向配置开发: 开发人员可以只使用JavaScript也能编写原生移动,结合React语法构建组件,实现: Android, IOS 两端代码,并发布上线.
+- React Native 产生的并不是"网页应用",或者说"HTML5应用",又或者"混合应用",而是一个真正的移动应用,从使用感受上和Objective-C或java编写的应用相比几乎是无法区分的.
 
+# 一、开发平台选则?
+- 1) MacOS系统(推荐)
+  - IOS 和 Android全都支持!
+- 2) Windows系统和Linux系统
+  - 目前只支持Android
 
-# 二、什么是React Native?
-- (一) 时下两大移动互联网主流技术
-  - BAT等一线互联网公司的插件化,热修改技术
-  - React Native技术(2016年,随着Android版本的文档,更加火爆)
+# 二、选择React Native的优势?
+- 1) 跨平台开发
+  - 运用React Native, 我们可以使用同一份业务逻辑核心代码来创建原生用用运行在 Android端 和 IOS端;
+- 2) 追求极致的用户体验: 热更新和热部署
+- 3) leran once, write everywhere(最具魅力)
+- React Native不强求一份原生代码支持多个平台,所以不是`Write once, run anywhere` (java), 而是`Learn once,write anywhere`
 
-- (二) React Native介绍
-  - Facebook于2015年9月15日发布React Native
-  - 广大开发者可以使用JavaScript和React开发跨平台移动应用
-  - React Native体长组件化开发:
+# 三、React Native开发注意事项
+- React Native所重要的技术栈比较多,需要良好的JavaScript功底,最好还需要懂一些IOS和Android原生开发,才能很好驾驭中大型移动端跨平台项目。初学者使用RN开发项目,建议选择:
+- 功能适中,交互一般,不需要特别多的系统原生支持
+- 对于部分复杂的应用,可以考虑原生+React Native混合开发
+
+# 02-RN环境配置
+- [React Native官网](https://reactnative.cn/docs/getting-started.html)
+- node版本最好选择稳定版本 (node-v10.16.3-x64.msi)
+
+# Android Studio创建新项目
+- 1. 打开Android Studio
+- 2. 选择空创建 ->
+- 3.
