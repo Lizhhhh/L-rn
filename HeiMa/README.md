@@ -495,6 +495,45 @@ import './css/index.scss';
 
 ***
 
+# 移动App第三天
+- 开始学习React
+- [from](https://www.bilibili.com/video/av59709253?from=search&seid=17093934757738552373)
+
+## Chapter:1 准备
+### 1.1 项目描述:
+1) 此项目为一个<font color=red>前后台分离</font>的后台管理的SPA,包括前端PC应用和后端应用
+2) 包括<font color=red>用户管理</font> / <font color=red>商品分类管理</font> /  <font color=red>商品管理</font> /  <font color=red>权限管理</font> 等功能模块
+3) 前端: 使用 <font color=red>React 全家桶(react + react-router + redux) + Antd(快速构建界面的UI组件库) + Axios(与后端进行交互) + ES6 + Webpack</font> 等技术
+4) 后端: 使用 <font color=red>Node + Express + Mongodb</font>等技术
+5) 采用<font color=red>模块化、组件化、工程化(脚手架创建项目、命令对项目进行编译、打包、热更新...)</font>的模式开发
+
+### 1.2 项目截图(略)
+
+### 1.3 技术选型
+
+````mermaid
+graph LR
+A[技术选型] --> B[前台数据展现/交互]
+ A --> C[后台应用]
+ A --> D[前后台交互]
+ A --> E[模块化]
+ B --> B1(react)
+ B --> B2(react-router-dom)
+ B --> B3(antd)
+ B --> B4(redux)
+````
+
+
+
+
+
+
+
+
+
+
+
+
 # 移动App最后一天
 ## 检测点
 ### 1.webpack如何提高效率
@@ -514,8 +553,6 @@ import './css/index.scss';
 ### 3.webpack中loader和plugins的区别
 - 原生的webpack只能理解javascript和json文件,如果遇到如.css或.jsx这类的后缀名,是无法解析的,这个时候就需要用到loader了,而某些loader无法解析的,就用到plugins.
 - loader是在开发过程用到的插件,而plugin贯彻整个开发和项目部署
-
-### 4.几个产出路径的概念梳理
 
 
 
