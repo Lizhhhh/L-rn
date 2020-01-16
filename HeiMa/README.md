@@ -511,17 +511,13 @@ import './css/index.scss';
 
 ### 1.3 技术选型
 
-````mermaid
+```mermaid
 graph LR
-A[技术选型] --> B[前台数据展现/交互]
- A --> C[后台应用]
- A --> D[前后台交互]
- A --> E[模块化]
- B --> B1(react)
- B --> B2(react-router-dom)
- B --> B3(antd)
- B --> B4(redux)
-````
+A[Hard eged] --> B(Round edge)
+  B --> C{Decision}
+  C --> |One| D[Result one]
+  C --> |Two| E[Result two]
+```
 
 
 
