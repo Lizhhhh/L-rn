@@ -513,11 +513,303 @@ import './css/index.scss';
 
 ```mermaid
 graph LR
-A[Hard eged] --> B(Round edge)
-  B --> C{Decision}
-  C --> |One| D[Result one]
-  C --> |Two| E[Result two]
+A[技术选型] --> B{前台数据展现/交互/组件化}
+  A --> C{后台应用}
+  A --> D{前后台交互}
+  A --> E{模块化}
+  A --> F{项目构建/工程化}
+  A --> G{其他}
+  B --> b1(reat/reactDom)
+  B --> b2(react-router-dom)
+  B --> b3(antd)
+  B --> b4(redux)
+  C --> c1(node/express)
+  C --> c2(mongodb/mongoose)
+  C --> c3(multer:文件上传中间件)
+  C --> c4(bluemp-md)
+  D --> D1{ajax请求}
+  D --> D2{接口测试工具}
+  D1 --> d11(axios)
+  D1 --> d12(jsonp)
+  D1 --> d13(promise/async/await)
+  D2 --> d21(postman)
+  E --> e1(ES6)
+  E --> e2(CommonJS)
+  F --> f1(webpack)
+  F --> f2(crete-react-app)
+  F --> f3(eslint)
+  G --> G1{富文本编辑器}
+  G --> G2{图表库}
+  G1 --> g11(react-draft-wysiwyg)
+  G1 --> g12(draft-js)
+  G1 --> g13(draftjs-to-html)
+  G2 --> g21(echarts)
+  G2 --> g22(echarts-for-react)
 ```
+
+### 1.4 路由
+![fontRouter](/assets/fontRouter.png)
+
+### 1.5 API/接口
+![API](/assets/API.png)
+
+### 1.6 项目中学到什么?
+
+#### 1.6.1 流程及开发方法
+1) 熟悉一个项目的<font color=red>开发流程</font>
+2) 学会<font color=red>模块化、组件化、工程化</font>的开发模式
+3) 掌握使用<font color=red>create-react-app</font>脚手架初始化react项目开发
+4) 学会使用<font color=red>node+express+mongoose+mongdb</font>搭建后台应用
+
+#### 1.6.2 React插件或第三方库
+1) 掌握使用 <font color=red>react-router-dom</font>开发单页应用
+2) 学会使用 <font color=red>redux + react-redux-thunk </font> 管理应用组件状态
+3) 掌握 <font color=red>axios/jsonp</font> 与后端进行数据交互
+4) 掌握使用 <font color=red>antd</font> 组件库构建界面
+5) 学会使用 <font color=red>echarts/bizcharts</font>实现数据可视化展现
+6) 学会使用<font color=red>react-draft-wysiwyg</font>实现富文本编辑器
+
+### 1.7 npm/yarn 常用命令
+- [yarn命令文档](https://yarnpkg.com/zh-Hans/docs/cli/)
+- [npm命令文档](https://docs.npmjs.com/cli-documentation/)
+> <font color=red>设置淘宝镜像</font>
+    npm config set registry https://registry.npm.taobao.org
+    yarn config set registry https://registry.npm.taobao.org
+  <font color=red>初始化项目</font>
+    yarn init -y
+    npm init -y
+  <font color=red>下载项目中的依赖</font>
+  yarn
+  npm install
+
+### 1.8 git常用基本命令
+- [Git参考手册](http://gitref.justjavac.com)
+```git
+* git config --global user.name "username"  // 配置用户名
+* git config --global user.email "xx@gmail.com" // 配置邮箱
+* git init    // 初始化生成一个本地仓库
+* git add .   // 添加到暂存区
+* git commit -m "message"   // 提交到本地仓库
+* git remote add origin url     // 关联到远程仓库
+```
+
+## Chapter2: 应用开发
+
+### 2.1 开始项目开发
+#### 2.1.1 使用create-react-app(脚手架搭建项目)
+1) create-react-app是react官方提供的用于搭建基于react-webpack-es6项目的脚手架
+2) 操作:
+```cli
+npm install -g create-react-app: 全局下载工具
+create-react-app react-admin: 下载模板项目
+cd react-admin
+npm start
+访问: localhost:3000
+```
+#### 2.1.2 编码测试与打包发布项目
+1) 启动项目
+```cli
+npm run start
+```
+2) 项目打包
+```cli
+npm run build
+npm install -g serve
+serve build
+```
+
+### 2.2 使用git管理项目
+- 首先进入项目的根目录
+```git
+git init
+git add .
+git commit -m "init app"  // 此时在本地仓库中
+git remote add orgin https://github.com/lizhhc/xxx_xxxxx.git    // 关联远程仓库
+git push origin master    // 推到master分支
+```
+[git常见命令]:
+1. `根据本地的分支生成一个新的分支dev`
+```git
+git checkout -b dev   // 创建一个新得分支,名称为dev(本地分支)
+```
+2. `将本地分支dev推送到远程`
+```git
+git push origin dev // 若远程没有改分支,则会自动创建一个新的分支
+```
+3. `从远程仓库克隆一个项目`
+  - 进入到项目的目录中
+```git
+git clone https://github.com/lzhhc/xxx.git
+```
+4. `查看当前分支`:
+```git
+git branch
+```
+5. `根据远程的仓库生成本地的分支dev`
+```git
+git checkout -b dev origin/dev
+// 迅速完成的原因,通过git clone 其实克隆了所有分支,只不过在本地显示的master分支
+```
+6. `从远程的dev分支拉取项目`
+```git
+git pull origin dev
+```
+### 2.3 目录结构设计
+- 删除`src`目录下面的所有文件(脚手架自动生成)
+- 在src目录下,新增如下结构
+```git
++ api         // ajax相关
++ assets      // 公用资源
++ components  // 非路由组件
++ config      // 配置
++ pages       // 路由组件
++ utils       // 工具模块
++ App.js      // 应用根组件
++ index.js    // 入口js
+```
+- 写一个根组件: `App.js`
+```js
+import React, {Component} from 'react'
+
+export default class App extends Component {
+  render() {
+    return <div>App</div>
+  }
+}
+/*
+1. 所有组件继承自 Component
+2. 所有组件必须有一个render方法,render方法中必须返回一个虚拟DOM
+*/
+```
+- 渲染App组件(根组件): `index.js`
+```js
+import React from 'react'
+import ReactDom from 'react-dom'
+
+import App from './App'
+
+ReactDom.render(<App />, document.getElementById('root'));
+/*
+1. React中,类只要声明了可以直接以 <App /> 的形式引用
+2. ReactDom提供了一个 render 方法,将组件渲染到对应的dom中
+*/
+```
+
+### 2.4 antd的引入
+- [官网](https://ant.design/docs/react/use-with-create-react-app-cn)
+
+- 1.下载antd: `yarn add antd`
+- 2.实现组件的按需打包:
+  - 一个组件库定义了很多个组件,但是在项目开发中往往只用到其中的部分,若全部打包到生产代码中会大大的增加生产代码的字节数.因此需要一个工具组(react-app-rewired customize-cra bable-plugin-import),实现按需打包.
+  - 参考[高级配置](https://ant.design/docs/react/use-with-create-react-app-cn#%E4%BD%BF%E7%94%A8-Day.js-%E6%9B%BF%E6%8D%A2-momentjs-%E4%BC%98%E5%8C%96%E6%89%93%E5%8C%85%E5%A4%A7%E5%B0%8F)
+
+#### 2.4.1 react-app-rewired的作用
+- 对脚手架 `react-app-rewired` 进行覆盖写,实现按需 导入/打包 样式
+- 导入依赖: `yarn add react-app-rewired customize-cra`
+- ```git
+  /* package.json */
+  "scripts": {
+  -   "start": "react-scripts start",
+  +   "start": "react-app-rewired start",
+  -   "build": "react-scripts build",
+  +   "build": "react-app-rewired build",
+  -   "test": "react-scripts test",
+  +   "test": "react-app-rewired test",
+  }
+  ```
+- 在项目的根目录创建一个 `config-override.js` 用于修改默认配置
+  ```js
+  module.exports = function override(config, env) {
+    // do stuff with the webpack config...
+    return config;
+  };
+  ```
+
+#### 2.4.2 customize-cra
+  - 由于新的 [react-app-rewired@2.x](https://github.com/timarney/react-app-rewired#alternatives)的关系,还需要安装 [customize-cra](https://github.com/arackaf/customize-cra)
+
+#### 2.4.3 babel-plugin-import
+> 注意: antd默认支持基于 ES module 的 tree shaking, js 代码部分不使用这个插件也会有按需加载的效果。
+
+[babel-plugin-import](https://github.com/ant-design/babel-plugin-import)是一个用于按需加载组件代码和样式的babel插件, 下面尝试安装它并修改 `config-overrides.js`文件
+- `yarn add babel-plugin-import`
+- ```git
+  + const { ovrride, fixBabelImports } = require('customize-cra');
+
+  - module.exports = function override(config, env) {
+  -   // do stuff with the webapck config...
+  -   return config;
+  - };
+  + module.exports = override(
+  +   fixBabelImports('import', {
+  +     libraryName: 'antd',
+  +     libraryDirectory: 'es',
+  +     style: 'css',
+  +   }),
+  + );
+  ```
+- 然后移出前面在 `src/App.css` 里面添加的 `@import '~antd/dist/antd.css';` 样式代码,bing'qie按下面的格式引入模块.
+  ```js
+  // src/App.js
+  import React, { Component } from 'react';
+  - import Button from 'antd/es/button';
+  + import { Button } from 'antd';
+  import  './App.css';
+
+  class App extends Component{
+
+
+    render() {
+      return (
+        <div className="App">
+          <Button type="primary">Primary</Button>
+        </div>
+      );
+    }
+  }
+
+  export default App;
+  ```
+#### 2.4.4 自定义 antd 主题
+按照[配置主题](https://ant.design/docs/react/customize-theme-cn)的要求,自定义需要用到less变量覆盖功能。我们可以引入`customize-cra`中提供的less相关的函数[addLessLoader](https://github.com/arackaf/customize-cra#addlessloaderloaderoptions)来帮助加载less样式,同时修改`config-ovrrides.js`文件如下
+- `yarn add less less-loader`
+- ```git
+  - const { override, fixBabelImports } = require('customize-cra');
+  + const { override, fixBabelImports, addLessLoader } = require('customize-cra');
+
+  module.exports = override(
+    fixBabelImports('import', {
+      libraryName: 'antd',
+      libraryDirectory: 'es',
+  -   style: 'css',
+  +   style: true,
+    }),
+  + addLessLoader({
+  +   javascriptEnabled: true,
+  +   modifyVars: { '@primary-color': '#1DA57A' },
+  + }),
+  );
+  ```
+  - 这里利用了[less-loader](https://github.com/webpack-contrib/less-loader#less-options)的 `modifyVars` 来进行主题配置,变量和其他配置方式可以参考 [配置主题](文档)
+  - 修改后重启`yarn start`, 如果看到一个绿色的按钮就说明配置成功了.
+
+
+### 2.5 路由的引入
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -549,6 +841,8 @@ A[Hard eged] --> B(Round edge)
 ### 3.webpack中loader和plugins的区别
 - 原生的webpack只能理解javascript和json文件,如果遇到如.css或.jsx这类的后缀名,是无法解析的,这个时候就需要用到loader了,而某些loader无法解析的,就用到plugins.
 - loader是在开发过程用到的插件,而plugin贯彻整个开发和项目部署
+
+### 4.中间件的概念
 
 
 

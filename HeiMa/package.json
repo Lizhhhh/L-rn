@@ -1,0 +1,10 @@
+{
+  "name": "HeiMa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "create-app": "^2.0.13",
+    "create-react-app": "^3.3.0"
+  }
+}
