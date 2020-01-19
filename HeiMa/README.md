@@ -1095,8 +1095,103 @@ export default WrappedLogin
         高阶组件是特别的高阶函数
         接收一个组件函数,返回是一个新的组件函数
 
-## Chapter3: 启动后台应用 & 用Postman测试接口
+### 2.8 运行server端项目
+#### 2.8.1 说明
+1) 咱们的项目是一个前后台分离的项目: 前台应用与后台应用
+2) 后台应用负责处理前台应用提交的请,并给前台应用返回json数据
+3) 前台应用负责展现数据,与用户交互,与后台应用交互
+
+#### 2.8.2  运行后台应用
+1) 确保启动 mongodb 服务
+2) 启动服务器应用: npm start
+
+#### 2.8.3 接口文档(略)
+
+### 梳理
+- 通过webpack打包,首先会加载根目录下的index.js文件.
+- 在`index.js`文件中,使用ReactDom渲染虚拟节点`<App />`,到根节点中
+- `App.js`中,使用到了`react-router-dom`来进行路由跳转, 路由跳转的基本模板如下:
+```js
+import React, {Component} from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Login from './pages/login/login'
+import Admin from './pages/admin/admin'
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/" component={Admin}></Route>
+        </Switch>
+      </BrowserRouter>
+    )
+  }
+}
+```
+
+### 2.9 前后台交互 ajax
+
+#### 2.9.1 下载依赖包
+    yarn add axios
+
+#### 2.9.2 封装 ajax 请求模块
+1) api/ajax.js
+  ````javascript
+     /*
+    能发送ajax请求的函数模块
+      包装axios
+      函数的返回值是promise对象
+      axios.get()/post()返回的就是promise对象
+      返回自己创建的promise对象:
+          统一处理请求异常
+          异步返回结果数据,而不是包含结果数据的res
+    */
+   import axios from 'axios';
+   import {message} from 'antd'
+
+   export default function ajax(url, data = {}, method = 'GET') {
+     return new Promise(function (resolve, reject) {
+       let promise
+       // 执行异步ajax请求
+       if(method == 'GET') {
+        promise = axios.get(url, {params: data})  // params 配置指定的是 query 参数
+       } else {
+         promise = axios.post(url, data)
+       }
+       promise.then(response => {
+
+       })
+     })
+   }
+  ````
+
+2) 封装接口
+  - 对于每个接口来说,其请求地址和方法是固定的,改变的仅仅只是请求的参数.
+  - 看下面接口
+  ```js
+  ajax('/login',{
+    username: 'Tom',
+    password: '123456'
+  }, 'POST').then()
+  ```
+  - 可以封装如下: `api/index.js`
+  ```js
+  import ajax from './ajax'
+  const reqLogin = (username, password) => ajax('/login', {username, password}, 'POST');
+  ```
 
 
 
 
+
+#### 2.9.3 登陆按钮流程梳理:
+1. `<Form onSubmit={this.handleSubmit} calssName="login-form"></Form>`,根据antd的表单元素,当点击提交键的时候,会触发一个handleSubmit函数.
+2. `handleSubmit`函数会传递一个默认的参数: `event`, 使用 `event.preventDefault()`来阻止表单的默认行为.
+3. antd使用`Form`这个高级函数,给`Login`组件添加了一层.这一层中包含了antd中的方法,在`handleSubmit`中通过`this.props.form.validateFields`得到.
+4. `validateFields`方法会有2个参数`(err, values)`, 其中`err`是出错后的报错信息,`values`是表单中的信息.
+
+#### 2.9.4 跨域解决办法:
+1. jsonp
+2. cors
+3. 代理

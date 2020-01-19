@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import logo from './images/logo.jpg'
-import { Form, Icon, Input, Button, message } from 'antd'
+import { Form, Icon, Input, Button } from 'antd'
 import './login.less'
+// import { reqLogin } from '../../api'
+import axios from 'axios'
 
 /*
 登录的路由组件
@@ -11,14 +13,38 @@ class Login extends Component {
     // 组织事件的默认行为
     e.preventDefault()
 
+    const BASE = 'http://localhost:5000'
+
     this.props.form.validateFields((err, values) => {
+      const { username, password } = values
       if (!err) {
-        console.log(values)
-      } else {
-        message.error(`验证失败`)
-        console.log('校验失败!')
+        axios
+          .get(BASE + '/login', {
+            params: {
+              username,
+              password
+            }
+          })
+          .then()
+          .catch()
       }
     })
+
+    // this.props.form.validateFields((err, values) => {
+    //   if (!err) {
+    //     const { username, password } = values
+    //     reqLogin(username, password)
+    //       .then(response => {
+    //         console.log('成功了', response.data)
+    //       })
+    //       .catch(error => {
+    //         console.log('失败了', error)
+    //       })
+    //   } else {
+    //     message.error(`验证失败`)
+    //     console.log('校验失败!')
+    //   }
+    // })
   }
 
   /**
